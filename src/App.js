@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 
-import Inspector from './Inspector';
+import ConnectedNode from './Node';
 
 class App extends Component {
     render() {
@@ -12,9 +11,9 @@ class App extends Component {
         };
 
         return <div style={style}>
-            <Inspector obj={this.props} name="ast" />
+            <ConnectedNode id="0" name="ast" />
         </div>;
     }
 }
 
-module.exports = connect(state => state)(App);
+module.exports = App;
