@@ -4,11 +4,21 @@ import gehry from '../node_modules/gehry/dist/gehry';
 import ast from './ast.json';
 
 const defaultState = gehry.deconstruct(ast);
-console.log(defaultState);
-
 
 const reducer = function(state = defaultState, action) {
-    return state;
+    switch (action.type) {
+        case 'UPDATE':
+            return {
+                ...state,
+                [action.id]: {
+                    ...state[action.id],
+                    [action.prop]: action.value
+                }
+            };
+            break;
+        default:
+            return state;
+    }
 };
 
 const store = createStore(reducer);

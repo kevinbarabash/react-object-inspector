@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import store from './store';
+
 class Node extends Component {
     constructor() {
         super();
@@ -14,6 +16,17 @@ class Node extends Component {
 
     handleClick(e) {
         this.setState({ disclosed: !this.state.disclosed });
+    }
+
+    handleStringClick(id, prop) {
+        const value = this.props.obj[prop];
+
+        store.dispatch({
+            type: 'UPDATE',
+            id,
+            prop,
+            value: Array.from(value).reverse().join("")
+        });
     }
 
     render() {
@@ -65,7 +78,12 @@ class Node extends Component {
             } else if (typeof value === 'string') {
                 return <div style={indent} key={key}>
                     <span style={propNameStyle}>{key}: </span>
-                    <span style={stringStyle}>"{value}"</span>
+                    <span
+                        style={stringStyle}
+                        onClick={e => this.handleStringClick(this.props.id, key)}
+                    >
+                        "{value}"
+                    </span>
                 </div>;
             } else if (typeof value === 'number') {
                 return <div style={indent} key={key}>
